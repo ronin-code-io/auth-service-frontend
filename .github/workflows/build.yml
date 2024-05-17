@@ -8,11 +8,11 @@ on:
 jobs:
   trigger:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Trigger auth service backend build
-      uses: passeidireto/trigger-external-workflow-action@main
-      with:
-        repository: ronin-code-io/auth-service-backend
-        event: frontend-update
-        github_pat: ${{ secrets.WORKFLOW_ACCESS_TOKEN }}
+    - name: Trigger workflow in another repo
+      run: |
+        curl -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ secrets.WORKFLOW_ACCESS_TOKEN }}" \
+          https://api.github.com/repos/ronin-code-io/app-service-backend/dispatches \
+          -d '{"event_type": "trigger-build"}'
