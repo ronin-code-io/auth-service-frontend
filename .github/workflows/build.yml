@@ -9,10 +9,10 @@ jobs:
   trigger:
     runs-on: ubuntu-latest
     steps:
-    - name: Trigger workflow in another repo
+    - name: Trigger workflow in backend repo
       run: |
         curl -X POST \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${{ secrets.WORKFLOW_ACCESS_TOKEN }}" \
-          https://api.github.com/repos/ronin-code-io/app-service-backend/dispatches \
+          https://api.github.com/repos/ronin-code-io/auth-service-backend/dispatches \
           -d '{"event_type": "trigger-build"}'
